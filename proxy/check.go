@@ -69,6 +69,19 @@ var checkTargets = []CheckTarget{
 	{Name: "GitHub API", Url: "https://api.github.com/"},
 }
 
+// 安全防護：判斷主機名稱或 IP 是否指向私有內部網路或 Loopback，防範 SSRF 內網探測
+func isPrivateOrLoopbackHost(hostname string) bool {
+	ip := net.ParseIP(hostname)
+	if ip == nil {
+		ips, err := net.LookupIP(hostname)
+		if err != nil || len(ips) == 0 {
+			return false
+		}
+		ip = ips[0]
+	}
+	return ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast()
+}
+
 // Check tries the proxy address given, or the stored setting when it is empty,
 // and reports what answered. It stores nothing, so the Settings page can try a
 // value before saving it.
@@ -84,6 +97,11 @@ func Check(address string) (*CheckResult, error) {
 	parsedUrl, err := parseProxyAddress(address)
 	if err != nil {
 		return nil, err
+	}
+
+	// 安全檢驗：禁止探測私有網段與 Loopback 位址
+	if isPrivateOrLoopbackHost(parsedUrl.Hostname()) {
+		return nil, errors.New("outbound proxy address cannot point to private or loopback networks (SSRF prevention)")
 	}
 
 	result := &CheckResult{Address: parsedUrl.Redacted()}

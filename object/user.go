@@ -97,6 +97,11 @@ func (user *User) ToCasdoorUser() auth.User {
 		displayName = user.Name
 	}
 
+	tag := ""
+	if user.Name == defaultAdminName && IsAdminUsingDefaultPassword() {
+		tag = "default-password"
+	}
+
 	return auth.User{
 		Owner:       UserOwner,
 		Name:        user.Name,
@@ -106,6 +111,7 @@ func (user *User) ToCasdoorUser() auth.User {
 		IsAdmin:     true,
 		DisplayName: displayName,
 		Avatar:      user.Avatar,
+		Tag:         tag,
 		IsForbidden: user.IsForbidden,
 		IsDeleted:   user.IsDeleted,
 	}

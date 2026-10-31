@@ -46,7 +46,8 @@ func (c *ApiController) GetSigninOptions() {
 	c.ResponseOk(map[string]interface{}{
 		"casdoorAvailable": casdoorAvailable,
 		"signinAvailable":  signinEnabled,
-		"autoSignin":       signinEnabled && object.IsAdminUsingDefaultPassword() && util.IsLoopbackRequest(c.Ctx.Request),
+		// 安全修補：停用危險的 autoSignin，防止反向代理下未授權訪客獲取 admin 權限
+		"autoSignin": false,
 		"authConfig": map[string]string{
 			"serverUrl":        getUnquotedConfig("casdoorEndpoint"),
 			"clientId":         getUnquotedConfig("clientId"),
@@ -159,15 +160,8 @@ func (c *ApiController) autoLoginAdmin() bool {
 
 func (c *ApiController) GetAccount() {
 	if c.GetSessionUser() == nil {
-		fromPath := c.Input().Get("fromPath")
-		if object.IsSigninEnabled() && fromPath != "/signin" && object.IsAdminUsingDefaultPassword() && util.IsLoopbackRequest(c.Ctx.Request) {
-			if !c.autoLoginAdmin() {
-				return
-			}
-		} else {
-			c.ResponseError("please sign in first")
-			return
-		}
+		c.ResponseError("please sign in first")
+		return
 	}
 
 	claims := c.GetSessionClaims()

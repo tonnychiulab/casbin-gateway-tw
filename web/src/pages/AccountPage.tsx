@@ -30,7 +30,8 @@ import type {Account} from "@/types";
 export default function AccountPage({account}: {account: Account}) {
   const [displayName, setDisplayName] = React.useState(account.displayName ?? "");
   const [avatar, setAvatar] = React.useState(account.avatar ?? "");
-  const [passwordOpen, setPasswordOpen] = React.useState(false);
+  const isDefaultPassword = account.tag === "default-password";
+  const [passwordOpen, setPasswordOpen] = React.useState(isDefaultPassword);
   const [currentPassword, setCurrentPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
 
@@ -61,6 +62,9 @@ export default function AccountPage({account}: {account: Account}) {
           setPasswordOpen(false);
           setCurrentPassword("");
           setNewPassword("");
+          if (isDefaultPassword) {
+            Setting.goToLink("/");
+          }
         } else {
           Setting.showMessage("error", res.msg);
         }
@@ -78,6 +82,12 @@ export default function AccountPage({account}: {account: Account}) {
         description={account.name}
         actions={<Button onClick={save}>{i18next.t("general:Save")}</Button>}
       />
+
+      {isDefaultPassword && (
+        <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
+          {i18next.t("account:You are using the default admin password. Please set a new password before accessing system features.")}
+        </div>
+      )}
 
       <Section title={i18next.t("account:Profile")} columns={2}>
         <Field label={i18next.t("general:Name")} htmlFor="account-name">

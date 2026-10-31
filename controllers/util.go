@@ -15,6 +15,7 @@
 package controllers
 
 import (
+	"github.com/apache/casbin-gateway/object"
 	"github.com/apache/casbin-gateway/service"
 )
 
@@ -52,8 +53,14 @@ func (c *ApiController) ResponseError(error string, data ...interface{}) {
 }
 
 func (c *ApiController) RequireSignedIn() bool {
-	if c.GetSessionUser() == nil {
+	user := c.GetSessionUser()
+	if user == nil {
 		c.ResponseError("please sign in first")
+		return true
+	}
+
+	if user.Owner == object.UserOwner && object.IsAdminUsingDefaultPassword() {
+		c.ResponseError("please change default password first")
 		return true
 	}
 
@@ -61,6 +68,10 @@ func (c *ApiController) RequireSignedIn() bool {
 }
 
 func (c *ApiController) RequireAdmin() bool {
+	if c.RequireSignedIn() {
+		return true
+	}
+
 	user := c.GetSessionUser()
 	if user == nil || !user.IsAdmin {
 		c.ResponseError("this operation requires admin privilege")

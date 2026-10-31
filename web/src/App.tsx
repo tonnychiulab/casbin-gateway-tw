@@ -206,6 +206,9 @@ export default function App() {
       sessionStorage.setItem("from", location.pathname);
       return <Navigate to="/signin" replace />;
     }
+    if (account.tag === "default-password" && location.pathname !== "/account") {
+      return <Navigate to="/account" replace />;
+    }
     return <>{render(account)}</>;
   };
 

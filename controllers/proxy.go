@@ -30,6 +30,7 @@ import (
 	"github.com/apache/casbin-gateway/object"
 	"github.com/apache/casbin-gateway/protocol"
 	"github.com/apache/casbin-gateway/proxy"
+	"github.com/apache/casbin-gateway/service"
 	"github.com/apache/casbin-gateway/util"
 	"github.com/beego/beego"
 )
@@ -678,13 +679,16 @@ func reportProviderStatus(provider *object.Provider, statusCode int) {
 // gateway, and a client-auth provider carries the caller's own vendor
 // credential in the same header a token would use. Anything off-box has to
 // present the relay token instead.
+// allowRelay decides whether a request may use the providers stored here.
+// 安全修補：若有設定 relayToken，則一律需驗證 relayToken 或本地專屬 Token (LocalTokenHeader)，
+// 防止反代下外部請求冒充 Loopback 任意免密盜刷上游 LLM Token 額度。
 func (c *ApiController) allowRelay() bool {
-	if util.IsLoopbackRequest(c.Ctx.Request) {
-		return true
+	token := conf.GetRelayToken()
+	if token != "" {
+		return c.relayCredential() == token || service.IsLocalRequest(c.Ctx.Request)
 	}
 
-	token := conf.GetRelayToken()
-	return token != "" && c.relayCredential() == token
+	return util.IsLoopbackRequest(c.Ctx.Request)
 }
 
 // relayCredential is the token the client sent, in either of the two headers

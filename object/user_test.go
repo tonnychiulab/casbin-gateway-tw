@@ -98,12 +98,19 @@ func TestInitUsersSeedsAdminWithoutCasdoor(t *testing.T) {
 	if casdoorUser.Owner != UserOwner || casdoorUser.Name != "admin" || !casdoorUser.IsAdmin {
 		t.Fatalf("ToCasdoorUser() = %+v", casdoorUser)
 	}
+	if casdoorUser.Tag != "default-password" {
+		t.Fatalf("expected Tag 'default-password' for seeded admin, got %q", casdoorUser.Tag)
+	}
 
 	if err = UpdateUserPassword(user, "newpass"); err != nil {
 		t.Fatal(err)
 	}
 	if IsAdminUsingDefaultPassword() {
 		t.Fatal("admin should no longer be using the default password")
+	}
+	updatedCasdoorUser := user.ToCasdoorUser()
+	if updatedCasdoorUser.Tag != "" {
+		t.Fatalf("expected empty Tag after password update, got %q", updatedCasdoorUser.Tag)
 	}
 
 	// Seeding again must not reset an admin that already exists.

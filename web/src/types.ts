@@ -36,6 +36,7 @@ export interface Account {
   displayName: string;
   avatar: string;
   isAdmin: boolean;
+  tag?: string;
   /** Filled in from `data2` of /api/get-account, not part of the user row. */
   hostname?: string;
 }

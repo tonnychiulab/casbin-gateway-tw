@@ -16,10 +16,27 @@ package controllers
 
 import (
 	"encoding/json"
+	"path/filepath"
+	"strings"
 
 	"github.com/apache/casbin-gateway/agent"
 	"github.com/apache/casbin-gateway/util"
 )
+
+// 安全防護：禁止直接枚舉作業系統敏感系統目錄，防止資訊洩露與系統探測
+func isRestrictedSystemPath(p string) bool {
+	cleaned := filepath.Clean(strings.TrimSpace(p))
+	if cleaned == "/" {
+		return true
+	}
+	restrictedPrefixes := []string{"/etc", "/sys", "/proc", "/dev", "/root", "/boot", "/var/run"}
+	for _, prefix := range restrictedPrefixes {
+		if cleaned == prefix || strings.HasPrefix(cleaned, prefix+"/") {
+			return true
+		}
+	}
+	return false
+}
 
 // BrowseLocalPath lists one directory of this host, for the file picker that
 // says where an agent no scan can find is installed.
@@ -28,7 +45,13 @@ func (c *ApiController) BrowseLocalPath() {
 		return
 	}
 
-	listing, err := util.BrowseDir(c.GetString("path"))
+	rawPath := c.GetString("path")
+	if isRestrictedSystemPath(rawPath) {
+		c.ResponseError("access to sensitive system directory is restricted")
+		return
+	}
+
+	listing, err := util.BrowseDir(rawPath)
 	if err != nil {
 		c.ResponseError(err.Error())
 		return
