@@ -68,6 +68,9 @@ function Ensure-AuthenticodeSignature {
         return
     }
 
+    # Strip Mark-of-the-Web to prevent SmartScreen execution blocks
+    Unblock-File -Path $FilePath -ErrorAction SilentlyContinue
+
     try {
         $sig = Get-AuthenticodeSignature -FilePath $FilePath -ErrorAction SilentlyContinue
         if ($sig -and $sig.Status -eq 'Valid') {
@@ -135,8 +138,12 @@ try {
     Write-Info "Downloading $Url"
     Invoke-WebRequest -Uri $Url -OutFile $ArchivePath -UseBasicParsing
 
+    # Unblock downloaded archive to strip Mark-of-the-Web (Zone.Identifier)
+    Unblock-File -Path $ArchivePath -ErrorAction SilentlyContinue
+
     Expand-Archive -Path $ArchivePath -DestinationPath $TmpDir -Force
     $Unpacked = Join-Path $TmpDir "$BaseName-windows-$ArchName"
+    Get-ChildItem -Path $Unpacked -Recurse -File -ErrorAction SilentlyContinue | Unblock-File -ErrorAction SilentlyContinue
 
     # ── install ───────────────────────────────────────────────────────────────
     Write-Info "Installing to $InstallDir"
