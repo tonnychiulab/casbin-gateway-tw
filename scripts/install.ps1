@@ -20,7 +20,7 @@ $Repo     = 'tonnychiulab/casbin-gateway-tw'
 $Tag      = 'nightly'
 $BaseName = 'casbin-gateway-nightly'
 
-$InstallDir = if ($env:INSTALL_DIR) { $env:INSTALL_DIR } else { "$env:LOCALAPPDATA\casbin-gateway" }
+$InstallDir = if ($env:INSTALL_DIR) { $env:INSTALL_DIR } else { "$env:LOCALAPPDATA\casbin-gateway-tw" }
 $BinDir     = Join-Path $InstallDir 'bin'
 
 # Windows PowerShell 5.1 still negotiates TLS 1.0 by default, which GitHub
@@ -44,7 +44,7 @@ function Install-Executable {
     }
     catch {
         if (-not (Test-Path $Destination)) {
-            throw "cannot write $Destination ($_)"
+            throw "cannot write $Destination ($_). If an antivirus previously quarantined this file path, please restore/clear it in your antivirus, or set `$env:INSTALL_DIR to a new location."
         }
     }
 

@@ -127,7 +127,7 @@ curl -fsSL https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/mast
 irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 ```
 
-兩者均會自動下載適合本機作業系統與硬體架構的二進位檔案，解壓縮至 `~/.local/share/casbin-gateway`（Windows 下為 `%LOCALAPPDATA%\casbin-gateway`），並將 `casbin-gateway` 指令加入系統 PATH、自動啟動並設定登入時開機自動啟動。執行安裝的終端機視窗將立即釋放還給您。
+兩者均會自動下載適合本機作業系統與硬體架構的二進位檔案，解壓縮至 `~/.local/share/casbin-gateway`（Windows 下預設為 `%LOCALAPPDATA%\casbin-gateway-tw`），並將 `casbin-gateway` 指令加入系統 PATH、自動啟動並設定登入時開機自動啟動。執行安裝的終端機視窗將立即釋放還給您。
 
 Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行，而是縮小至系統匣（System Tray）於背景繼續運作；點擊系統匣圖示可隨時重新開啟視窗、切換**開機自動啟動**以及徹底結束程式。若您習慣使用瀏覽器操作，或主機未安裝圖形桌面環境，亦可直接連線至 **http://localhost:17000**；使用 `casbin-gateway start` 則僅於背景啟動後端服務。
 

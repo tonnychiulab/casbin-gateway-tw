@@ -23,19 +23,23 @@ Remove-Item -Path 'HKCU:\Software\Classes\ccswitch' -Recurse -Force -ErrorAction
 Write-Host "  - 註冊表開機啟動與 ccswitch:// 協定已清除"
 
 # 4. 從使用者 PATH 環境變數中移除 bin 目錄
-$BinPath = "$env:LOCALAPPDATA\casbin-gateway\bin"
-$UserPath = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
-if ($UserPath -like "*$BinPath*") {
-    $NewPath = ($UserPath -split ';' | Where-Object { $_ -ne $BinPath -and $_ -ne '' }) -join ';'
-    [System.Environment]::SetEnvironmentVariable('PATH', $NewPath, 'User')
-    Write-Host "  - 已從使用者 PATH 環境變數中移除: $BinPath"
+foreach ($binDirName in @('casbin-gateway-tw\bin', 'casbin-gateway\bin')) {
+    $targetBin = Join-Path $env:LOCALAPPDATA $binDirName
+    $UserPath = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
+    if ($UserPath -like "*$targetBin*") {
+        $NewPath = ($UserPath -split ';' | Where-Object { $_ -ne $targetBin -and $_ -ne '' }) -join ';'
+        [System.Environment]::SetEnvironmentVariable('PATH', $NewPath, 'User')
+        Write-Host "  - 已從使用者 PATH 環境變數中移除: $targetBin"
+    }
 }
 
 # 5. 刪除整個安裝目錄
-$InstallDir = if ($env:INSTALL_DIR) { $env:INSTALL_DIR } else { "$env:LOCALAPPDATA\casbin-gateway" }
-if (Test-Path $InstallDir) {
-    Remove-Item -Path $InstallDir -Recurse -Force -ErrorAction SilentlyContinue
-    Write-Host "  - 已清理安裝目錄: $InstallDir"
+$dirsToClean = if ($env:INSTALL_DIR) { @($env:INSTALL_DIR) } else { @("$env:LOCALAPPDATA\casbin-gateway-tw", "$env:LOCALAPPDATA\casbin-gateway") }
+foreach ($dir in $dirsToClean) {
+    if (Test-Path $dir) {
+        Remove-Item -Path $dir -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Host "  - 已清理安裝目錄: $dir"
+    }
 }
 
 Write-Host "`n✅ Casbin Gateway 已成功完整解除安裝乾淨！" -ForegroundColor Green

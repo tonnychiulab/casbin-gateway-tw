@@ -120,7 +120,7 @@ On Windows, in PowerShell:
 irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 ```
 
-Either one downloads the build for this machine, unpacks it into `~/.local/share/casbin-gateway` (`%LOCALAPPDATA%\casbin-gateway` on Windows), puts a `casbin-gateway` command on your PATH, starts it, and arranges for it to start again when you log in. The terminal you installed from is yours again straight away.
+Either one downloads the build for this machine, unpacks it into `~/.local/share/casbin-gateway` (`%LOCALAPPDATA%\casbin-gateway-tw` on Windows), puts a `casbin-gateway` command on your PATH, starts it, and arranges for it to start again when you log in. The terminal you installed from is yours again straight away.
 
 Gateway then opens in its own window — no sign-in: it serves this machine only and signs the local admin in on sight. Closing that window leaves Gateway running behind its tray icon, which is also where you reopen the window, turn **Start at Login** off and on — **Settings → Startup** is the same switch — and quit for real. There is a **Casbin Gateway** entry on your desktop and in the Start menu, in `~/Applications`, or in the application menu, depending on the platform. An archive unpacked by hand gets the same entry the first time the launcher runs.
 

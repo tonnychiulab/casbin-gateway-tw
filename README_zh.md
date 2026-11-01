@@ -120,7 +120,7 @@ Windows，在 PowerShell 中：
 irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 ```
 
-两者都会下载适配本机的构建产物，解压到 `~/.local/share/casbin-gateway`（Windows 上是 `%LOCALAPPDATA%\casbin-gateway`），把 `casbin-gateway` 命令加入 PATH，启动它，并设置成开机（登录）自启。安装用的那个终端窗口立刻就还给你。
+两者都会下载适配本机的构建产物，解压到 `~/.local/share/casbin-gateway`（Windows 上为 `%LOCALAPPDATA%\casbin-gateway-tw`），把 `casbin-gateway` 命令加入 PATH，启动它，并设置成开机（登录）自启。安装用的那个终端窗口立刻就还给你。
 
 Gateway 会在自己的窗口里打开 —— 不用登录：它只服务本机，本机访问会直接以管理员身份进入。关掉窗口不会退出，它缩到托盘图标后台继续跑，重新打开窗口、开关**开机自启**（**设置 → 启动**是同一个开关）和真正退出都在托盘菜单里。桌面和开始菜单里会有一个 **Casbin Gateway** 快捷方式；macOS 上在 `~/Applications`，Linux 上在应用菜单里。手动解压的压缩包也一样，启动器第一次运行时会自己建好。
 
