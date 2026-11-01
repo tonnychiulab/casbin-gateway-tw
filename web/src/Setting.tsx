@@ -34,7 +34,8 @@ export let CasdoorSdk: Sdk;
 
 export const Countries = [
   {label: "English", key: "en", country: "US", alt: "English"},
-  {label: "中文", key: "zh", country: "CN", alt: "中文"},
+  {label: "简体中文", key: "zh", country: "CN", alt: "简体中文"},
+  {label: "正體中文", key: "zh-TW", country: "TW", alt: "正體中文"},
 ];
 
 export function initCasdoorSdk(config: typeof Conf.AuthConfig) {
