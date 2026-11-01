@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none;">📦⚡️ Casbin Gateway (正體中文版)</h1>
-<h3 align="center">看清您機器上每個 AI 程式設計 Agent 在做什麼，以及它背後的 API 是否真是您花錢購買的那一款。</h3>
+<h3 align="center">看清您電腦上每個 AI 程式設計 Agent 在做什麼，以及它背後的 API 是否真是您付費購買的那個版本。</h3>
 <p align="center">
   <a href="https://github.com/tonnychiulab/casbin-gateway-tw/actions/workflows/golangci-lint.yml"><img alt="Lint" src="https://img.shields.io/github/actions/workflow/status/tonnychiulab/casbin-gateway-tw/golangci-lint.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=lint"></a>
   <a href="https://github.com/tonnychiulab/casbin-gateway-tw/actions/workflows/build.yml"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/tonnychiulab/casbin-gateway-tw/build.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=build"></a>
@@ -17,12 +17,12 @@
 </p>
 
 > [!NOTE]
-> **本倉庫源起與開源授權聲明**：
+> **本專案源起與開源授權聲明**：
 > 本專案為學習、實驗與資安防護加固用途所建立的 Fork 專案，源自官方優秀的上游專案 **[Apache Casbin-Gateway (Incubating)](https://github.com/apache/casbin-gateway)**。
-> 本專案完全遵循原專案的 **[Apache License 2.0](https://github.com/tonnychiulab/casbin-gateway-tw/blob/master/LICENSE)** 開源授權協議，完整保留原專案著作權與作者宣告（Copyright 2022-2026 The Casbin Authors & The Apache Software Foundation）。
-> 本 Fork 在原作者深厚的基礎上，額外針對生產環境反向代理架構加固了安全性補丁（包含防範反代自動登入提權、管理者預設密碼強制輪轉、本地檔案瀏覽目錄防遍歷、SSRF 多 IP 完整過濾與 DNS Rebinding 防護等），歡迎社群共同交流與檢驗！
+> 本專案完全遵循原專案的 **[Apache License 2.0](https://github.com/tonnychiulab/casbin-gateway-tw/blob/master/LICENSE)** 開源授權條款，完整保留原專案著作權與作者宣告（Copyright 2022-2026 The Casbin Authors & The Apache Software Foundation）。
+> 本 Fork 在原作者深厚的基礎上，額外針對生產環境反向代理架構加固了安全性修補（包含防範反向代理環境下自動登入提權、管理者預設密碼強制輪替、本機檔案瀏覽防目錄遍歷、SSRF 多 IP 完整過濾與 DNS Rebinding 防護等），歡迎社群共同交流與檢驗！
 
-<p align="center"><b>機器上的每一個程式設計 Agent</b></p>
+<p align="center"><b>電腦上的每一個程式設計 Agent</b></p>
 <p align="center">
   <a href="https://claude.com" title="Claude Code"><img src="https://www.google.com/s2/favicons?domain=claude.com&sz=64" width="30" height="30" alt="Claude Code"></a>
   <a href="https://claude.ai" title="Claude Desktop"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=64" width="30" height="30" alt="Claude Desktop"></a>
@@ -105,9 +105,9 @@
   <a href="https://cdn.casbin.org/img/casbin-gateway.gif"><img alt="Casbin Gateway" src="https://cdn.casbin.org/img/casbin-gateway.gif" width="900"></a>
 </p>
 
-- **這個 API Key，真的是賣給您的那一個嗎？** 中轉代理商可能拿便宜模型冒充、偽造快取命中，或者暗中丟棄宣稱支援的參數。[真偽檢測](#殺手鐧那個-key-背後的-api真是賣給你的那個嗎) 會主動探測每個 Provider，給予 A–F 評級；[不需安裝也能單測特定介面](#不需安裝單測一個介面)。
-- **每個 Agent 做了什麼、花了多少、傳送到了何處。** 包含每條提示詞與工具調用，從 Agent 自身的會話記錄中讀取花費；在 Windows 上更能追蹤每個 Agent 程序將資料上傳至何處，涵蓋任何代理軟體都無法監測的隱蔽連線。
-- **所有 Agent，統一集中管控。** 將 Claude Code、Codex、Cursor、Gemini CLI 等無縫連接至 44 個模型廠商中的任意一家，單一廠商額度耗盡或故障時[自動故障轉移至備用供應商](#provider-無法應答時備用-provider-與模型路由)，規範每個 Agent 的操作權限，並支援直接安裝、升級或回復 Agent 本身。
+- **這個 API 金鑰，真的是賣給您的那一個嗎？** 第三方轉發商可能拿便宜模型冒充、偽造快取命中，或者暗中丟棄宣稱支援的參數。[真偽檢測](#殺手鐧那個-key-背後的-api真是賣給你的那個嗎) 會主動探測每個 Provider，給予 A–F 評級；[不需安裝也能單獨測試特定端點](#不需安裝單測一個介面)。
+- **每個 Agent 做了什麼、花了多少、傳送到何處。** 包含每條提示詞與工具呼叫，從 Agent 自身的對話歷史紀錄中讀取花費；在 Windows 上更能追蹤每個 Agent 程序將資料上傳至何處，涵蓋任何代理軟體都無法監測的隱蔽連線。
+- **所有 Agent，統一集中管控。** 將 Claude Code、Codex、Cursor、Gemini CLI 等無縫連接至 44 個模型廠商中的任意一家，單一廠商額度耗盡或服務中斷時[自動容錯移轉至備用供應商](#provider-無法應答時備用-provider-與模型路由)，規範每個 Agent 的操作權限，並支援直接安裝、升級或版本降級 Agent 本身。
 
 ---
 
@@ -127,9 +127,9 @@ curl -fsSL https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/mast
 irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 ```
 
-兩者均會自動下載適合本機作業系統與架構的二進位檔案，解壓縮至 `~/.local/share/casbin-gateway`（Windows 下為 `%LOCALAPPDATA%\casbin-gateway`），並將 `casbin-gateway` 指令加入系統 PATH、自動啟動並配置登入時開機自啟動。執行安裝的終端機視窗將立即釋放還給您。
+兩者均會自動下載適合本機作業系統與硬體架構的二進位檔案，解壓縮至 `~/.local/share/casbin-gateway`（Windows 下為 `%LOCALAPPDATA%\casbin-gateway`），並將 `casbin-gateway` 指令加入系統 PATH、自動啟動並設定登入時開機自動啟動。執行安裝的終端機視窗將立即釋放還給您。
 
-Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行，而是退至系統托盤後台繼續運作；點擊托盤圖示可隨時重新開啟視窗、切換**開機自啟動**以及徹底退出程式。若您習慣使用瀏覽器操作，或主機未安裝圖形桌面環境，亦可直接連線至 **http://localhost:17000**；使用 `casbin-gateway start` 則僅啟動後端服務。
+Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行，而是縮小至系統匣（System Tray）於背景繼續運作；點擊系統匣圖示可隨時重新開啟視窗、切換**開機自動啟動**以及徹底結束程式。若您習慣使用瀏覽器操作，或主機未安裝圖形桌面環境，亦可直接連線至 **http://localhost:17000**；使用 `casbin-gateway start` 則僅於背景啟動後端服務。
 
 資料庫採用單一 SQLite 檔案儲存於自身目錄下，開箱即用。
 
@@ -145,17 +145,17 @@ Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行
 | 每個 Agent 允許執行的權限 | 每個 Agent 當前安裝的版本 |
 | :---: | :---: |
 | [![權限](https://cdn.casbin.org/img/casbin-gateway-permissions.png)](https://cdn.casbin.org/img/casbin-gateway-permissions.png) | [![Agent 版本](https://cdn.casbin.org/img/casbin-gateway-versions.png)](https://cdn.casbin.org/img/casbin-gateway-versions.png) |
-| 提供 40+ 項細粒度開關，編譯為 Casbin 策略，嚴格審核每筆轉發請求 | 對比本機安裝版本與套件管理器最新發布版本，一鍵完成安裝、升級與回退 |
+| 提供 40+ 項細部控制開關，編譯為 Casbin 策略，嚴格審核每筆轉發請求 | 對比本機安裝版本與套件管理器最新發布版本，一鍵完成安裝、升級與版本降級 |
 
 | 每個 Agent 的實際花費統計 | 每個模型廠商的集中端點 |
 | :---: | :---: |
 | [![用量](https://cdn.casbin.org/img/casbin-gateway-usage.png)](https://cdn.casbin.org/img/casbin-gateway-usage.png) | [![新建 Provider](https://cdn.casbin.org/img/casbin-gateway-new-provider.png)](https://cdn.casbin.org/img/casbin-gateway-new-provider.png) |
-| 直接讀取 Agent 本機對話歷史記錄，即使未經 Gateway 轉發的費用亦能精準統計 | 提供 44 種廠商預設範本，或任何 OpenAI / Anthropic 相容的自訂 Base URL |
+| 直接讀取 Agent 本機對話歷史紀錄，即使未經 Gateway 轉發的費用亦能精準統計 | 提供 44 種廠商預設範本，或任何 OpenAI / Anthropic 相容的自訂 Base URL |
 
-| Agent 轉發過的每一筆通訊記錄 | 完整封包檢視，而非僅僅是數字統計 |
+| Agent 轉發過的每一筆通訊紀錄 | 完整封包檢視，而非僅僅是數字統計 |
 | :---: | :---: |
 | [![LLM 記錄](https://cdn.casbin.org/img/casbin-gateway-llm-records.png)](https://cdn.casbin.org/img/casbin-gateway-llm-records.png) | [![單條記錄](https://cdn.casbin.org/img/casbin-gateway-llm-record.png)](https://cdn.casbin.org/img/casbin-gateway-llm-record.png) |
-| 按模型統計請求次數、Token 用量、快取命中率與成本消耗 | 完整檢視 System Prompt、每條訊息對話以及提供給模型的工具 Schema |
+| 按模型統計請求次數、Token 用量、快取命中率與成本消耗 | 完整檢視 System Prompt、每條對話訊息以及提供給模型的工具 Schema |
 
 ---
 
@@ -164,15 +164,15 @@ Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行
 為使 Casbin Gateway 能安全部署於現代生產環境（例如位於 Nginx、Caddy、Cloudflare Tunnel 等反向代理背後），本 Fork 版本額外實作並驗證了以下安全性防護：
 
 1. **阻斷反向代理下的管理員自動登入提權 (P0)**：
-   修補原設計在單機環境依賴 `127.0.0.1` 自動簽發最高權限 Admin Session 的機制。在反代架構下強制要求顯式帳號密碼登入，防範外部訪客直接取得系統控制權。
-2. **強制管理員預設密碼輪轉機制 (P1)**：
-   初次部署若系統偵測到仍為初始預設密碼（`admin:123`），系統將限制 API 存取權限並強制重導向至換密頁面，換密完成前全面阻斷受保護的管理端點。
+   修補原設計在單機開發環境依賴 `127.0.0.1` 自動簽發最高權限 Admin Session 的機制。在反向代理架構下強制要求顯式帳號密碼登入，防範外部訪客直接取得系統控制權。
+2. **強制管理員預設密碼輪替機制 (P1)**：
+   初次部署若系統偵測到仍為初始預設密碼（`admin:123`），系統將限制 API 存取權限並強制重導向至變更密碼頁面，密碼變更完成前全面阻斷受保護的管理端點。
 3. **強化 LLM Relay 中繼授權防護 (P1)**：
-   修訂中繼轉發驗證邏輯，不再單純信任連線來源為本機 IP，全面落實 Relay Token 簽名驗證，防止付費 LLM Key 被未經授權盜刷。
-4. **本機目錄瀏覽路徑防遍歷防護 (P2)**：
-   強化路徑輸入標準化（Stripping quotes, Abs, EvalSymlinks），嚴格阻斷敏感系統核心目錄（如 `/etc`、`/sys`、`/proc`、`/root` 等）的列舉探測與遍歷攻擊。
-5. **SSRF 多 IP 全解析過濾與 DNS Rebinding 防護 (P2)**：
-   出站代理測試全面檢查 DNS 解析的所有 A/AAAA 記錄及 Unspecified (`0.0.0.0`/`::`) 位址，並採用固定 IP Dial 連線，杜絕私網探測與 DNS 重新綁定攻擊。
+   修訂中繼轉發驗證邏輯，不再單純信任連線來源為本機 IP，全面落實 Relay Token 簽章驗證，防止付費 LLM 金鑰被未經授權盜刷。
+4. **本機目錄瀏覽防路徑遍歷攻擊 (P2)**：
+   強化路徑輸入標準化（去除多餘引號、解析絕對路徑 Abs、解析符號連結 EvalSymlinks），嚴格阻斷敏感系統核心目錄（如 `/etc`、`/sys`、`/proc`、`/root` 等）的列舉探測與目錄遍歷攻擊。
+5. **SSRF 多 IP 完整解析過濾與 DNS Rebinding 防護 (P2)**：
+   出站代理測試全面檢查 DNS 解析的所有 A/AAAA 紀錄及未指定位址（`0.0.0.0`/`::`），並採用固定 IP Dial 連線，杜絕內部私網探測與 DNS 重新綁定攻擊。
 
 ---
 
@@ -181,8 +181,8 @@ Gateway 啟動後會在獨立視窗中開啟。關閉視窗後不會結束執行
 - **停止服務**：`casbin-gateway stop`
 - **啟動服務**：`casbin-gateway start`
 - **查看狀態**：`casbin-gateway status`
-- **前台除錯執行**：`casbin-gateway`（使用 `Ctrl+C` 中斷）
-- **完整反安裝**：`casbin-gateway uninstall`（自動還原所有 Agent 鉤子、自啟動項與快捷方式）
+- **前景除錯執行**：`casbin-gateway`（使用 `Ctrl+C` 結束）
+- **完整解除安裝**：`casbin-gateway uninstall`（自動還原所有 Agent 攔截掛鉤 Hook、開機自啟動設定與桌面捷徑）
 
 ---
 
