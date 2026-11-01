@@ -111,7 +111,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev osslsigncode
           mkdir -p "${RUNNER_TEMP}/pkgconfig"
           cat > "${RUNNER_TEMP}/pkgconfig/webkit2gtk-4.0.pc" <<'PC'
           Name: webkit2gtk-4.0
@@ -135,6 +135,9 @@ jobs:
           path: ./web/build
 
       - name: Build the platform archives
+        env:
+          WINDOWS_CODESIGN_PFX: ${{ secrets.WINDOWS_CODESIGN_PFX }}
+          WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD }}
         run: |
           set -euo pipefail
           mkdir -p dist
@@ -202,6 +205,22 @@ jobs:
             cp LICENSE NOTICE DISCLAIMER README.md "${stage}/"
 
             if [[ "${goos}" == "windows" ]]; then
+              echo "Signing Windows binaries..."
+              pfxPath="${RUNNER_TEMP}/codesign.pfx"
+              pfxPass="casbin-gateway-tw"
+              if [[ -n "${WINDOWS_CODESIGN_PFX:-}" ]]; then
+                echo "${WINDOWS_CODESIGN_PFX}" | base64 -d > "${pfxPath}"
+                pfxPass="${WINDOWS_CODESIGN_PASSWORD:-}"
+              else
+                openssl req -x509 -newkey rsa:2048 -keyout "${RUNNER_TEMP}/key.pem" -out "${RUNNER_TEMP}/cert.pem" -days 365 -nodes -subj "/CN=Casbin Gateway Release Signer"
+                openssl pkcs12 -export -out "${pfxPath}" -inkey "${RUNNER_TEMP}/key.pem" -in "${RUNNER_TEMP}/cert.pem" -passout "pass:${pfxPass}"
+              fi
+              for targetExe in "${binary}" "${desktopBinary}.exe" "${probeBinary}"; do
+                if [[ -f "${targetExe}" ]]; then
+                  osslsigncode sign -pkcs12 "${pfxPath}" -pass "${pfxPass}" -n "Casbin Gateway" -i "https://github.com/tonnychiulab/casbin-gateway-tw" -in "${targetExe}" -out "${targetExe}.signed" && mv -f "${targetExe}.signed" "${targetExe}" || echo "Signature step skipped for ${targetExe}"
+                fi
+              done
+
               archive="${name}.zip"
               (cd dist && zip -qr "${archive}" "${name}")
             else

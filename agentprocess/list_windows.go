@@ -18,6 +18,8 @@ package agentprocess
 
 import (
 	"context"
+	"path/filepath"
+	"strings"
 	"unsafe"
 
 	"golang.org/x/sys/windows"
@@ -29,9 +31,35 @@ func list(_ context.Context, withCommands bool) []Process {
 		return processes
 	}
 	for i := range processes {
-		processes[i].Command = commandLine(uint32(processes[i].Pid))
+		if isCandidateProcess(processes[i].Path) {
+			processes[i].Command = commandLine(uint32(processes[i].Pid))
+		}
 	}
 	return processes
+}
+
+// isCandidateProcess filters out Windows system and non-agent processes before
+// attempting to read memory. Opening system or protected processes with
+// PROCESS_VM_READ triggers antivirus heuristic behavioral detection (e.g. IDP.Generic)
+// and fails with access denied anyway.
+func isCandidateProcess(path string) bool {
+	if path == "" {
+		return false
+	}
+	lower := strings.ToLower(filepath.ToSlash(path))
+	// Exclude core Windows system directories except for legitimate scripting shells
+	if strings.Contains(lower, "/windows/system32/") ||
+		strings.Contains(lower, "/windows/syswow64/") ||
+		strings.Contains(lower, "/windows/winsxs/") {
+		base := filepath.Base(lower)
+		switch base {
+		case "cmd.exe", "powershell.exe", "pwsh.exe", "wscript.exe", "cscript.exe", "bash.exe":
+			return true
+		default:
+			return false
+		}
+	}
+	return true
 }
 
 // listImages walks the process table for image paths alone, which the OS
