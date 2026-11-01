@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <b>English</b> | <a href="./README_zh.md">中文</a>
+  <b>English</b> | <a href="./README_zh.md">简体中文</a> | <a href="./README_zh-TW.md">繁體中文</a>
 </p>
 
 <p align="center"><b>Every coding agent on the machine</b></p>

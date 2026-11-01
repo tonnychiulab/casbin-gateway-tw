@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> | <b>中文</b>
+  <a href="./README.md">English</a> | <b>简体中文</b> | <a href="./README_zh-TW.md">繁體中文</a>
 </p>
 
 <p align="center"><b>机器上的每一个编程 Agent</b></p>
