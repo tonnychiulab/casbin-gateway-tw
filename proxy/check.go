@@ -69,17 +69,31 @@ var checkTargets = []CheckTarget{
 	{Name: "GitHub API", Url: "https://api.github.com/"},
 }
 
+// 安全防護：判斷 IP 是否為受限的私有內部網路、Loopback、Link-Local 或 Unspecified 位址
+func isRestrictedIP(ip net.IP) bool {
+	return ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() || ip.IsUnspecified()
+}
+
 // 安全防護：判斷主機名稱或 IP 是否指向私有內部網路或 Loopback，防範 SSRF 內網探測
-func isPrivateOrLoopbackHost(hostname string) bool {
-	ip := net.ParseIP(hostname)
-	if ip == nil {
-		ips, err := net.LookupIP(hostname)
-		if err != nil || len(ips) == 0 {
-			return false
+func isPrivateOrLoopbackHost(hostname string) (bool, net.IP) {
+	if ip := net.ParseIP(hostname); ip != nil {
+		if isRestrictedIP(ip) {
+			return true, ip
 		}
-		ip = ips[0]
+		return false, ip
 	}
-	return ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast()
+
+	ips, err := net.LookupIP(hostname)
+	if err != nil || len(ips) == 0 {
+		return false, nil
+	}
+
+	for _, resolved := range ips {
+		if isRestrictedIP(resolved) {
+			return true, resolved
+		}
+	}
+	return false, ips[0]
 }
 
 // Check tries the proxy address given, or the stored setting when it is empty,
@@ -99,15 +113,32 @@ func Check(address string) (*CheckResult, error) {
 		return nil, err
 	}
 
-	// 安全檢驗：禁止探測私有網段與 Loopback 位址
-	if isPrivateOrLoopbackHost(parsedUrl.Hostname()) {
+	// 安全檢驗：禁止探測私有網段、Loopback 或未指定位址
+	restricted, safeIP := isPrivateOrLoopbackHost(parsedUrl.Hostname())
+	if restricted {
 		return nil, errors.New("outbound proxy address cannot point to private or loopback networks (SSRF prevention)")
 	}
 
 	result := &CheckResult{Address: parsedUrl.Redacted()}
 
 	started := time.Now()
-	connection, err := net.DialTimeout("tcp", dialAddress(parsedUrl), dialTimeout)
+	// 防範 DNS Rebinding：若已解析出安全 IP 則直接向安全 IP 建立連線，避免第二次解析被替換為內網位址
+	targetHost := dialAddress(parsedUrl)
+	if safeIP != nil {
+		port := parsedUrl.Port()
+		if port == "" {
+			port = "1080"
+			switch parsedUrl.Scheme {
+			case "http":
+				port = "80"
+			case "https":
+				port = "443"
+			}
+		}
+		targetHost = net.JoinHostPort(safeIP.String(), port)
+	}
+
+	connection, err := net.DialTimeout("tcp", targetHost, dialTimeout)
 	result.DialMillis = time.Since(started).Milliseconds()
 	if err != nil {
 		result.DialError = err.Error()

@@ -25,13 +25,29 @@ import (
 
 // 安全防護：禁止直接枚舉作業系統敏感系統目錄，防止資訊洩露與系統探測
 func isRestrictedSystemPath(p string) bool {
-	cleaned := filepath.Clean(strings.TrimSpace(p))
-	if cleaned == "/" {
+	normalized := strings.Trim(strings.TrimSpace(p), `"`)
+	if normalized == "" {
+		return false
+	}
+	cleaned := filepath.Clean(normalized)
+	if !filepath.IsAbs(cleaned) {
+		abs, err := filepath.Abs(cleaned)
+		if err != nil {
+			return true
+		}
+		cleaned = abs
+	}
+	if realPath, err := filepath.EvalSymlinks(cleaned); err == nil {
+		cleaned = realPath
+	}
+
+	slashPath := filepath.ToSlash(cleaned)
+	if slashPath == "/" {
 		return true
 	}
-	restrictedPrefixes := []string{"/etc", "/sys", "/proc", "/dev", "/root", "/boot", "/var/run"}
+	restrictedPrefixes := []string{"/etc", "/sys", "/proc", "/dev", "/root", "/boot", "/var/run", "/run"}
 	for _, prefix := range restrictedPrefixes {
-		if cleaned == prefix || strings.HasPrefix(cleaned, prefix+"/") {
+		if slashPath == prefix || strings.HasPrefix(slashPath, prefix+"/") {
 			return true
 		}
 	}
@@ -54,6 +70,10 @@ func (c *ApiController) BrowseLocalPath() {
 	listing, err := util.BrowseDir(rawPath)
 	if err != nil {
 		c.ResponseError(err.Error())
+		return
+	}
+	if isRestrictedSystemPath(listing.Path) {
+		c.ResponseError("access to sensitive system directory is restricted")
 		return
 	}
 	c.ResponseOk(listing)
