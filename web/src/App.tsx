@@ -353,7 +353,7 @@ export default function App() {
 
           {/* Fixed height: ChatPage sizes its pane against the header and this. */}
           <footer className="flex h-18 items-center justify-center border-t">
-            <a target="_blank" rel="noreferrer" href="https://github.com/apache/casbin-gateway">
+            <a target="_blank" rel="noreferrer" href="https://github.com/tonnychiulab/casbin-gateway-tw">
               <Logo className="h-[30px] w-auto" />
             </a>
           </footer>

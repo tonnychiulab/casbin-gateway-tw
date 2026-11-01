@@ -2,7 +2,7 @@
 # Casbin Gateway one-step install for Linux and macOS.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/apache/casbin-gateway/master/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.sh | bash
 #
 # This downloads the nightly build, which is an automated build of master and
 # not an official release. Use it for testing and development only.
@@ -19,7 +19,7 @@
 
 set -euo pipefail
 
-REPO="apache/casbin-gateway"
+REPO="tonnychiulab/casbin-gateway-tw"
 TAG="nightly"
 BASENAME="casbin-gateway-nightly"
 

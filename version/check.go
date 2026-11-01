@@ -36,7 +36,7 @@ const (
 	// Updates come from the same place scripts/install.sh takes its binaries
 	// from: the rolling "nightly" pre-release. Official releases are source
 	// packages and carry no executable to install.
-	repository  = "apache/casbin-gateway"
+	repository  = "tonnychiulab/casbin-gateway-tw"
 	releaseTag  = "nightly"
 	assetPrefix = "casbin-gateway-nightly"
 

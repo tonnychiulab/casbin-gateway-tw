@@ -1,7 +1,7 @@
 # Casbin Gateway one-step install for Windows.
 #
 # Usage (run only if you trust this script source):
-#   irm https://raw.githubusercontent.com/apache/casbin-gateway/master/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 #
 # This downloads the nightly build, which is an automated build of master and
 # not an official release. Use it for testing and development only.
@@ -16,7 +16,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-$Repo     = 'apache/casbin-gateway'
+$Repo     = 'tonnychiulab/casbin-gateway-tw'
 $Tag      = 'nightly'
 $BaseName = 'casbin-gateway-nightly'
 

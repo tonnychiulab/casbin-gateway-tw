@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   release:
-    if: ${{ github.repository == 'apache/casbin-gateway' }}
+    if: ${{ github.repository == 'tonnychiulab/casbin-gateway-tw' || github.repository == 'apache/casbin-gateway' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

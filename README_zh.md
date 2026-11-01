@@ -1,14 +1,14 @@
 <h1 align="center" style="border-bottom: none;">📦⚡️ Casbin Gateway</h1>
 <h3 align="center">看清你机器上每个AI编程Agent在做什么，以及它背后的API是不是你花钱买的那个。</h3>
 <p align="center">
-  <a href="https://github.com/apache/casbin-gateway/actions/workflows/golangci-lint.yml"><img alt="Lint" src="https://img.shields.io/github/actions/workflow/status/apache/casbin-gateway/golangci-lint.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=lint"></a>
-  <a href="https://github.com/apache/casbin-gateway/actions/workflows/build.yml"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/apache/casbin-gateway/build.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=build"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/actions/workflows/golangci-lint.yml"><img alt="Lint" src="https://img.shields.io/github/actions/workflow/status/tonnychiulab/casbin-gateway-tw/golangci-lint.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=lint"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/actions/workflows/build.yml"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/tonnychiulab/casbin-gateway-tw/build.yml?branch=master&style=flat-square&logo=github&logoColor=white&label=build"></a>
   <a href="https://pkg.go.dev/github.com/apache/casbin-gateway"><img alt="Go Reference" src="https://img.shields.io/badge/go.dev-reference-00ADD8?style=flat-square&logo=go&logoColor=white"></a>
-  <a href="https://github.com/apache/casbin-gateway/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/apache/casbin-gateway?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
-  <a href="https://github.com/apache/casbin-gateway/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/apache/casbin-gateway?style=flat-square&color=3b82f6"></a>
-  <a href="https://github.com/apache/casbin-gateway/issues"><img alt="Issues" src="https://img.shields.io/github/issues/apache/casbin-gateway?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
-  <a href="https://github.com/apache/casbin-gateway/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/apache/casbin-gateway?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
-  <a href="https://github.com/apache/casbin-gateway/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/apache/casbin-gateway?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/tonnychiulab/casbin-gateway-tw?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/tonnychiulab/casbin-gateway-tw?style=flat-square&color=3b82f6"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/issues"><img alt="Issues" src="https://img.shields.io/github/issues/tonnychiulab/casbin-gateway-tw?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/tonnychiulab/casbin-gateway-tw?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
+  <a href="https://github.com/tonnychiulab/casbin-gateway-tw/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/tonnychiulab/casbin-gateway-tw?style=flat-square&logo=github&logoColor=white&color=3b82f6"></a>
   <a href="https://discord.gg/S5UjpzGZjN"><img alt="Discord" src="https://img.shields.io/discord/1022748306096537660?style=flat-square&logo=discord&logoColor=white&label=discord&color=5865F2"></a>
   <a href="https://linux.do" title="LINUX DO"><img alt="LINUX DO" src="https://img.shields.io/badge/LINUX-DO-FFB003?style=flat-square&logo=data:image/svg%2bxml;base64,DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiPjxwYXRoIGQ9Ik00Ni44Mi0uMDU1aDYuMjVxMjMuOTY5IDIuMDYyIDM4IDIxLjQyNmM1LjI1OCA3LjY3NiA4LjIxNSAxNi4xNTYgOC44NzUgMjUuNDV2Ni4yNXEtMi4wNjQgMjMuOTY4LTIxLjQzIDM4LTExLjUxMiA3Ljg4NS0yNS40NDUgOC44NzRoLTYuMjVxLTIzLjk3LTIuMDY0LTM4LjAwNC0yMS40M1EuOTcxIDY3LjA1Ni0uMDU0IDUzLjE4di02LjQ3M0MxLjM2MiAzMC43ODEgOC41MDMgMTguMTQ4IDIxLjM3IDguODE3IDI5LjA0NyAzLjU2MiAzNy41MjcuNjA0IDQ2LjgyMS0uMDU2IiBzdHlsZT0ic3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7ZmlsbDojZWNlY2VjO2ZpbGwtb3BhY2l0eToxIi8+PHBhdGggZD0iTTQ3LjI2NiAyLjk1N3EyMi41My0uNjUgMzcuNzc3IDE1LjczOGE0OS43IDQ5LjcgMCAwIDEgNi44NjcgMTAuMTU3cS00MS45NjQuMjIyLTgzLjkzIDAgOS43NS0xOC42MTYgMzAuMDI0LTI0LjM4N2E2MSA2MSAwIDAgMSA5LjI2Mi0xLjUwOCIgc3R5bGU9InN0cm9rZTpub25lO2ZpbGwtcnVsZTpldmVub2RkO2ZpbGw6IzE5MTkxOTtmaWxsLW9wYWNpdHk6MSIvPjxwYXRoIGQ9Ik03Ljk4IDcwLjkyNmMyNy45NzctLjAzNSA1NS45NTQgMCA4My45My4xMTNRODMuNDI2IDg3LjQ3MyA2Ni4xMyA5NC4wODZxLTE4LjgxIDYuNTQ0LTM2LjgzMi0xLjg5OC0xNC4yMDMtNy4wOS0yMS4zMTctMjEuMjYyIiBzdHlsZT0ic3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7ZmlsbDojZjlhZjAwO2ZpbGwtb3BhY2l0eToxIi8+PC9zdmc+"></a>
 </p>
@@ -111,13 +111,13 @@
 Linux 和 macOS：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/apache/casbin-gateway/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.sh | bash
 ```
 
 Windows，在 PowerShell 中：
 
 ```powershell
-irm https://raw.githubusercontent.com/apache/casbin-gateway/master/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/tonnychiulab/casbin-gateway-tw/master/scripts/install.ps1 | iex
 ```
 
 两者都会下载适配本机的构建产物，解压到 `~/.local/share/casbin-gateway`（Windows 上是 `%LOCALAPPDATA%\casbin-gateway`），把 `casbin-gateway` 命令加入 PATH，启动它，并设置成开机（登录）自启。安装用的那个终端窗口立刻就还给你。
@@ -258,7 +258,7 @@ Agent 是通过读取 **Gateway 所在机器**的用户账户、home 目录和�
 GATEWAY_PROBE_KEY=sk-... go run github.com/apache/casbin-gateway/cmd/gateway-probe@master https://relay.example.com --model claude-sonnet-4-5
 ```
 
-没装Go的话，从[nightly构建](https://github.com/apache/casbin-gateway/releases/tag/nightly)下载对应平台的`gateway-probe`单文件，用法相同。已经装了Gateway的，直接`casbin-gateway probe`。`--hide-host`会在报告和卡片上打码接口地址，`--json`输出评级依据的每个请求和返回，其余参数见`--help`。
+没装Go的话，从[nightly构建](https://github.com/tonnychiulab/casbin-gateway-tw/releases/tag/nightly)下载对应平台的`gateway-probe`单文件，用法相同。已经装了Gateway的，直接`casbin-gateway probe`。`--hide-host`会在报告和卡片上打码接口地址，`--json`输出评级依据的每个请求和返回，其余参数见`--help`。
 
 ### 让 Agent 的流量走 Gateway
 
@@ -409,7 +409,7 @@ Gateway 默认只监听 `127.0.0.1`，因为有两样东西对能连上这个端
 1. **改掉管理员密码**（**My Account** 里）。自动登录在遇到第一个非本机请求时就停止，从那以后密码是唯一的门槛。
 2. **每个发往 `/v1` 的请求都要带上中继令牌**。Gateway 在首次启动时生成它，显示在 **Settings → Security** 里；Providers 和 Agents 页面上的环境变量片段已经填好了它，Gateway 为 Agent 写配置时写进去的也是它。来自本机的请求永远不需要它。
 
-**这些是 nightly 构建**，每次推送都从 `master` 重新构建，并作为 [`nightly`](https://github.com/apache/casbin-gateway/releases/tag/nightly) 预发布版本发布。它们的用途是让人不装 Go 和 Node 工具链就能试用 Gateway；其他场景都应该从源码发布版构建。
+**这些是 nightly 构建**，每次推送都从 `master` 重新构建，并作为 [`nightly`](https://github.com/tonnychiulab/casbin-gateway-tw/releases/tag/nightly) 预发布版本发布。它们的用途是让人不装 Go 和 Node 工具链就能试用 Gateway；其他场景都应该从源码发布版构建。
 
 ### 在 Docker 或 Podman 里运行
 
@@ -555,8 +555,8 @@ Casbin Gateway 包含 2 个部分：
 
 | 名称 | 说明 | 语言 | 源代码 |
 |----------|----------------------------------------|------------------------|----------------------------------------------------------|
-| 前端 | Casbin Gateway 的 Web 前端 UI | TypeScript + React + shadcn/ui | https://github.com/apache/casbin-gateway/tree/master/web |
-| 后端 | Casbin Gateway 的 RESTful API 后端 | Golang + Beego + XORM | https://github.com/apache/casbin-gateway |
+| 前端 | Casbin Gateway 的 Web 前端 UI | TypeScript + React + shadcn/ui | https://github.com/tonnychiulab/casbin-gateway-tw/tree/master/web |
+| 后端 | Casbin Gateway 的 RESTful API 后端 | Golang + Beego + XORM | https://github.com/tonnychiulab/casbin-gateway-tw |
 
 ## 在线演示
 
@@ -572,4 +572,4 @@ https://ai.casbin.com
 
 ## 许可证
 
-[Apache-2.0](https://github.com/apache/casbin-gateway/blob/master/LICENSE)
+[Apache-2.0](https://github.com/tonnychiulab/casbin-gateway-tw/blob/master/LICENSE)
